@@ -1,6 +1,11 @@
 package store.model;
 
 public class PromotionInfo {
-    private Promotion promotion;
-    private long stock;
+    private final Promotion promotion;
+    private long quantity;
+
+    public PromotionInfo(Promotion promotion, long quantity) {
+        this.promotion = promotion;
+        this.quantity = quantity;
+    }
 }

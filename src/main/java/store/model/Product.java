@@ -1,6 +1,11 @@
 package store.model;
 
 public class Product {
-    private ProductInfo productInfo;
-    private ProductPromotion promotions;
+    private final ProductInfo productInfo;
+    private final ProductPromotion promotions;
+
+    public Product(ProductInfo productInfo, ProductPromotion promotions) {
+        this.productInfo = productInfo;
+        this.promotions = promotions;
+    }
 }

@@ -1,5 +1,9 @@
 package store.model;
 
 public class Store {
-    private Stock stock;
+    private final Stock stock;
+
+    public Store(Stock stock) {
+        this.stock = stock;
+    }
 }

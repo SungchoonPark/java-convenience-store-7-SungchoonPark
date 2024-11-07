@@ -3,9 +3,17 @@ package store.model;
 import java.time.LocalDate;
 
 public class Promotion {
-    private String name;
-    private long buy;
-    private int get;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private final String name;
+    private final long buy;
+    private final int get;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+
+    public Promotion(String name, long buy, int get, LocalDate startDate, LocalDate endDate) {
+        this.name = name;
+        this.buy = buy;
+        this.get = get;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }

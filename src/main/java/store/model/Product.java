@@ -35,6 +35,10 @@ public class Product {
         return promotions.isUnderQuantity(purchaseQuantity, LocalDateTime.now());
     }
 
+    public String getProductName() {
+        return productInfo.getProductName();
+    }
+
     private long getTotalQuantity(LocalDateTime now) {
         return productInfo.getQuantity() + promotions.getTodayPromotionQuantity(now);
     }

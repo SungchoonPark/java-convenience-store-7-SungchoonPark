@@ -44,4 +44,8 @@ public class ProductInfo {
 
         return "재고 없음";
     }
+
+    public String getProductName() {
+        return name;
+    }
 }

@@ -31,6 +31,10 @@ public class StoreController {
         PurchaseItems purchaseItems = getPurchaseList();
 
         List<UnderQuantityItem> promotionUnderQuantity = storeService.getPromotionUnderQuantity(purchaseItems);
+        for (UnderQuantityItem underQuantityItem : promotionUnderQuantity) {
+            readUnderQuantityUserChoice(underQuantityItem);
+        }
+
     }
 
     private PurchaseItems getPurchaseList() {
@@ -46,6 +50,17 @@ public class StoreController {
 
     private PurchaseItems validatePurchaseList(TemporaryPurchaseList temporaryPurchaseList) {
         return storeService.generatePurchaseItems(temporaryPurchaseList);
+    }
+
+    private void readUnderQuantityUserChoice(UnderQuantityItem underQuantityItem) {
+        while (true) {
+            try {
+                inputView.readUnderQuantityUserChoice(underQuantityItem.getProductName());
+                break;
+            } catch (IllegalArgumentException e) {
+                outputView.printExceptionMessage(e.getMessage());
+            }
+        }
     }
 
 }

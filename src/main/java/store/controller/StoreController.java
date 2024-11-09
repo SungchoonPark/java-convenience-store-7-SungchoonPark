@@ -23,6 +23,7 @@ public class StoreController {
         LocalDateTime now = DateTimes.now();
         Stocks storeStock = storeService.getStoreStock(now);
 
-        inputView.printNowStock(storeStock);
+        String purchaseInfo = inputView.readPurchaseInfo(storeStock);
+        System.out.println(purchaseInfo);
     }
 }

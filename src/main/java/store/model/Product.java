@@ -42,4 +42,8 @@ public class Product {
     private long getTotalQuantity(LocalDateTime now) {
         return productInfo.getQuantity() + promotions.getTodayPromotionQuantity(now);
     }
+
+    public void updatePromotionQuantity(int purchaseQuantity) {
+        promotions.updatePromotionQuantity(purchaseQuantity, LocalDateTime.now());
+    }
 }

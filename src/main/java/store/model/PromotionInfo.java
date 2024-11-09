@@ -47,4 +47,8 @@ public class PromotionInfo {
 
         return "재고 없음";
     }
+
+    public void minusQuantity(int purchaseQuantity) {
+        promotionQuantity -= purchaseQuantity;
+    }
 }

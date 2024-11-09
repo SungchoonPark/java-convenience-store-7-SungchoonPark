@@ -45,4 +45,12 @@ public class ProductPromotion {
 
         return false;
     }
+
+    public void updatePromotionQuantity(int purchaseQuantity, LocalDateTime today) {
+        for (PromotionInfo promotion : promotions) {
+            if(promotion.isOngoingPromotion(today)) {
+                promotion.minusQuantity(purchaseQuantity);
+            }
+        }
+    }
 }

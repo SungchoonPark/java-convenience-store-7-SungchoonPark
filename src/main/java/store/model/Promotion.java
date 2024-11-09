@@ -32,4 +32,8 @@ public class Promotion {
     public boolean isUnderQuantity(long purchaseQuantity) {
         return purchaseQuantity % (buy + get) == buy;
     }
+
+    public void minusQuantity(int purchaseQuantity) {
+
+    }
 }

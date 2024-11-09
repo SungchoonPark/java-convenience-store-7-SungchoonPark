@@ -28,6 +28,10 @@ public class PromotionInfo {
         return false;
     }
 
+    public long getQuantity() {
+        return quantity;
+    }
+
     private String formatQuantity() {
         if (quantity != 0) {
             return quantity + "개";

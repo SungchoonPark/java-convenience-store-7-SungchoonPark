@@ -2,6 +2,7 @@ package store.model;
 
 import store.dto.StockInfo;
 import store.dto.Stocks;
+import store.exception.ExceptionMessage;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,5 +22,22 @@ public class Stock {
         }
 
         return new Stocks(stockInfos);
+    }
+
+    public PurchaseItem validPurchaseItem(TemporaryPurchaseInfo purchaseItem) {
+        Product product = findProductByName(purchaseItem.getProductName());
+        product.checkValidPurchaseQuantity(purchaseItem.getQuantity(), LocalDateTime.now());
+
+        return new PurchaseItem(product, purchaseItem.getQuantity());
+    }
+
+    private Product findProductByName(String productName) {
+        for (Product product : products) {
+            if (product.isSameProductName(productName)) {
+                return product;
+            }
+        }
+
+        throw new IllegalArgumentException(ExceptionMessage.NOT_EXIST_PRODUCT.getMessage());
     }
 }

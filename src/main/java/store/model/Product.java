@@ -1,6 +1,7 @@
 package store.model;
 
 import store.dto.StockInfo;
+import store.exception.ExceptionMessage;
 
 import java.time.LocalDateTime;
 
@@ -18,5 +19,17 @@ public class Product {
                 productInfo.getStockGeneralInfo(),
                 promotions.getTodayPromotionInfo(today)
         );
+    }
+
+    public boolean isSameProductName(String productName) {
+        return productInfo.isSameProductName(productName);
+    }
+
+    public void checkValidPurchaseQuantity(long purchaseQuantity, LocalDateTime now) {
+        long totalQuantity = productInfo.getQuantity() + promotions.getTodayPromotionQuantity(now);
+
+        if (totalQuantity < purchaseQuantity) {
+            throw new IllegalArgumentException(ExceptionMessage.OVER_STOCK.getMessage());
+        }
     }
 }

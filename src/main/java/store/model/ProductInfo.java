@@ -24,6 +24,14 @@ public class ProductInfo {
         );
     }
 
+    public boolean isSameProductName(String productName) {
+        return this.name.equals(productName);
+    }
+
+    public long getQuantity() {
+        return quantity;
+    }
+
     private String formatPrice() {
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
         return numberFormat.format(price) + "원";

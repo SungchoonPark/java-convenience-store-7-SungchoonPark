@@ -17,7 +17,6 @@ public class ProductPromotion {
     }
 
     public StockPromotionInfo getTodayPromotionInfo(LocalDateTime today) {
-        // Todo : promotions 돌면서 현재 진행중인 promotion 가져오면 됨.
         for (PromotionInfo promotion : promotions) {
             if(promotion.isOngoingPromotion(today)) {
                 return promotion.getStockPromotionInfo();
@@ -25,5 +24,15 @@ public class ProductPromotion {
         }
 
         return null;
+    }
+
+    public long getTodayPromotionQuantity(LocalDateTime today) {
+        for (PromotionInfo promotion : promotions) {
+            if(promotion.isOngoingPromotion(today)) {
+                return promotion.getQuantity();
+            }
+        }
+
+        return 0L;
     }
 }

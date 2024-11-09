@@ -29,10 +29,20 @@ public class ProductPromotion {
     public long getTodayPromotionQuantity(LocalDateTime today) {
         for (PromotionInfo promotion : promotions) {
             if(promotion.isOngoingPromotion(today)) {
-                return promotion.getQuantity();
+                return promotion.getPromotionQuantity();
             }
         }
 
         return 0L;
+    }
+
+    public boolean isUnderQuantity(long purchaseQuantity, LocalDateTime today) {
+        for (PromotionInfo promotion : promotions) {
+            if(promotion.isOngoingPromotion(today)) {
+                return promotion.isUnderQuantity(purchaseQuantity);
+            }
+        }
+
+        return false;
     }
 }

@@ -6,11 +6,11 @@ import java.time.LocalDateTime;
 
 public class PromotionInfo {
     private final Promotion promotion;
-    private long quantity;
+    private long promotionQuantity;
 
-    public PromotionInfo(Promotion promotion, long quantity) {
+    public PromotionInfo(Promotion promotion, long promotionQuantity) {
         this.promotion = promotion;
-        this.quantity = quantity;
+        this.promotionQuantity = promotionQuantity;
     }
 
     public StockPromotionInfo getStockPromotionInfo() {
@@ -28,13 +28,21 @@ public class PromotionInfo {
         return false;
     }
 
-    public long getQuantity() {
-        return quantity;
+    public long getPromotionQuantity() {
+        return promotionQuantity;
+    }
+
+    public boolean isUnderQuantity(long purchaseQuantity) {
+        if (promotionQuantity >= purchaseQuantity) {
+            return promotion.isUnderQuantity(purchaseQuantity);
+        }
+
+        return false;
     }
 
     private String formatQuantity() {
-        if (quantity != 0) {
-            return quantity + "개";
+        if (promotionQuantity != 0) {
+            return promotionQuantity + "개";
         }
 
         return "재고 없음";

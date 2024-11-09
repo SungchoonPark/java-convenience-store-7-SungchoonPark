@@ -1,11 +1,13 @@
 package store.service;
 
 import store.dto.Stocks;
+import store.dto.UnderQuantityItem;
 import store.model.PurchaseItems;
 import store.model.TemporaryPurchaseList;
 import store.model.Store;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class StoreService {
     private final Store store;
@@ -18,11 +20,11 @@ public class StoreService {
         return store.getTodayStock(today);
     }
 
-//    public void purchase(TemporaryPurchaseList temporaryPurchaseList) {
-//        store.purchase(temporaryPurchaseList);
-//    }
-
     public PurchaseItems generatePurchaseItems(TemporaryPurchaseList temporaryPurchaseList) {
         return store.validateTemporaryPurchaseItems(temporaryPurchaseList);
+    }
+
+    public List<UnderQuantityItem> getPromotionUnderQuantity(PurchaseItems purchaseItems) {
+        return purchaseItems.getPromotionUnderQuantity();
     }
 }

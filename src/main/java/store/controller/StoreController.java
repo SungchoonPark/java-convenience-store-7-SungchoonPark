@@ -2,6 +2,7 @@ package store.controller;
 
 import camp.nextstep.edu.missionutils.DateTimes;
 import store.dto.Stocks;
+import store.dto.UnderQuantityItem;
 import store.model.PurchaseItems;
 import store.model.TemporaryPurchaseList;
 import store.service.StoreService;
@@ -9,6 +10,7 @@ import store.view.InputView;
 import store.view.OutputView;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class StoreController {
     private final InputView inputView;
@@ -28,6 +30,7 @@ public class StoreController {
         inputView.printNowStock(storeStock);
         PurchaseItems purchaseItems = getPurchaseList();
 
+        List<UnderQuantityItem> promotionUnderQuantity = storeService.getPromotionUnderQuantity(purchaseItems);
     }
 
     private PurchaseItems getPurchaseList() {
@@ -44,4 +47,5 @@ public class StoreController {
     private PurchaseItems validatePurchaseList(TemporaryPurchaseList temporaryPurchaseList) {
         return storeService.generatePurchaseItems(temporaryPurchaseList);
     }
+
 }

@@ -28,4 +28,8 @@ public class Promotion {
         return (todayDate.isEqual(startDate) || todayDate.isAfter(startDate))
                 && (todayDate.isEqual(endDate) || todayDate.isBefore(endDate));
     }
+
+    public boolean isUnderQuantity(long purchaseQuantity) {
+        return purchaseQuantity % (buy + get) == buy;
+    }
 }

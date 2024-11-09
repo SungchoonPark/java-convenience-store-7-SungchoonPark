@@ -26,10 +26,16 @@ public class Product {
     }
 
     public void checkValidPurchaseQuantity(long purchaseQuantity, LocalDateTime now) {
-        long totalQuantity = productInfo.getQuantity() + promotions.getTodayPromotionQuantity(now);
-
-        if (totalQuantity < purchaseQuantity) {
+        if (getTotalQuantity(now) < purchaseQuantity) {
             throw new IllegalArgumentException(ExceptionMessage.OVER_STOCK.getMessage());
         }
+    }
+
+    public boolean isUnderQuantity(long purchaseQuantity) {
+        return promotions.isUnderQuantity(purchaseQuantity, LocalDateTime.now());
+    }
+
+    private long getTotalQuantity(LocalDateTime now) {
+        return productInfo.getQuantity() + promotions.getTodayPromotionQuantity(now);
     }
 }

@@ -1,6 +1,7 @@
 package store.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Promotion {
     private final String name;
@@ -15,5 +16,16 @@ public class Promotion {
         this.get = get;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public String getPromotionName() {
+        return name;
+    }
+
+    public boolean isOngoingPromotion(LocalDateTime today) {
+        LocalDate todayDate = today.toLocalDate();
+
+        return (todayDate.isEqual(startDate) || todayDate.isAfter(startDate))
+                && (todayDate.isEqual(endDate) || todayDate.isBefore(endDate));
     }
 }

@@ -1,10 +1,11 @@
 package store.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import store.dto.StockInfo;
-import store.dto.Stocks;
+import store.dto.*;
 import store.exception.ExceptionMessage;
 import store.model.purchaseData.LowPromotionStockProduct;
+
+import java.util.List;
 
 public class InputView {
 
@@ -13,6 +14,7 @@ public class InputView {
     private static final String UNDER_QUANTITY_MESSAGE = "현재 %s은(는) 1개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)";
     private static final String LOW_PROMOTION_STOCK_MESSAGE = "현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)";
     private static final String MEMBERSHIP_MESSAGE = "멤버십 할인을 받으시겠습니까? (Y/N)";
+    private static final String RE_PURCHASE_MESSAGE = "감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)";
 
     public String readPurchaseInfo() {
         System.out.println(PURCHASE_MESSAGE);
@@ -78,5 +80,37 @@ public class InputView {
         if (!userChoice.contains("Y") && !userChoice.contains("N")) {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_INPUT.getMessage());
         }
+    }
+
+    public void printPurchasePayInfo(List<ProductListData> totalProductList, List<FreeInfo> freeInfo, PriceInfo priceInfo) {
+        System.out.println("===========W 편의점=============");
+        System.out.printf("%-10s %5s %10s%n", "상품명", "수량", "금액");
+
+        // 상품 리스트 출력
+        for (ProductListData product : totalProductList) {
+            System.out.printf("%-10s %5d %10s%n", product.productName(), product.quantity(), product.price());
+        }
+
+        System.out.println("===========증\t정=============");
+
+        // 증정 품목 출력
+        for (FreeInfo free : freeInfo) {
+            System.out.printf("%-10s %5d%n", free.productName(), free.freeCnt());
+        }
+
+        System.out.println("==============================");
+        System.out.printf("%-10s %5d %10s%n", "총구매액", priceInfo.totalQuantity(), priceInfo.totalPrice());
+        System.out.printf("%-10s %18s%n", "행사할인", priceInfo.promotionPrice());
+        System.out.printf("%-10s %18s%n", "멤버십할인", priceInfo.membershipPrice());
+        System.out.printf("%-10s %18s%n", "내실돈", priceInfo.payPrice());
+    }
+
+    public String printRePurchase() {
+        System.out.println(RE_PURCHASE_MESSAGE);
+        String userChoice = Console.readLine();
+        checkUserInputIsNull(userChoice);
+        checkValidateUserChoice(userChoice);
+
+        return userChoice;
     }
 }

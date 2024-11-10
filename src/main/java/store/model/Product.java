@@ -1,5 +1,6 @@
 package store.model;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import store.dto.StockInfo;
 import store.exception.ExceptionMessage;
 
@@ -32,11 +33,11 @@ public class Product {
     }
 
     public boolean isGeneralProduct() {
-        return promotions.getTodayPromotionInfo(LocalDateTime.now()) == null;
+        return promotions.getTodayPromotionInfo(DateTimes.now()) == null;
     }
 
     public boolean isPromotionNotApplyProduct(long purchaseQuantity) {
-        if (promotions.getTodayPromotionInfo(LocalDateTime.now()) == null) {
+        if (promotions.getTodayPromotionInfo(DateTimes.now()) == null) {
             return false;
         }
 
@@ -48,27 +49,34 @@ public class Product {
     }
 
     public boolean isUnderQuantity(long purchaseQuantity) {
-        return promotions.isUnderQuantity(purchaseQuantity, LocalDateTime.now());
+        return promotions.isUnderQuantity(purchaseQuantity, DateTimes.now());
     }
 
     public boolean isLowPromotionStock(long purchaseQuantity) {
-        return promotions.isLowPromotionStock(purchaseQuantity, LocalDateTime.now());
+        return promotions.isLowPromotionStock(purchaseQuantity, DateTimes.now());
     }
 
     public long getLowPromotionStock(long purchaseQuantity) {
-        return promotions.calculateLowPromotionStock(purchaseQuantity, LocalDateTime.now());
+        return promotions.calculateLowPromotionStock(purchaseQuantity, DateTimes.now());
     }
 
     public String getProductName() {
         return productInfo.getProductName();
     }
 
-    private long getTotalQuantity(LocalDateTime now) {
-        return productInfo.getQuantity() + promotions.getTodayPromotionQuantity(now);
-    }
-
-
     public long getTotalPrice(long purchaseQuantity) {
         return productInfo.getTotalPrice(purchaseQuantity);
+    }
+
+    public boolean isExistFree(long purchaseQuantity) {
+        return promotions.isExistFree(purchaseQuantity, DateTimes.now());
+    }
+
+    public long getFreeCnt(long purchaseQuantity) {
+        return promotions.getFreeCnt(purchaseQuantity, DateTimes.now());
+    }
+
+    private long getTotalQuantity(LocalDateTime now) {
+        return productInfo.getQuantity() + promotions.getTodayPromotionQuantity(now);
     }
 }

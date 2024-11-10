@@ -65,4 +65,12 @@ public class PromotionInfo {
     public void minusQuantity(int purchaseQuantity) {
         promotionQuantity -= purchaseQuantity;
     }
+
+    public boolean isExistFree(long purchaseQuantity) {
+        return purchaseQuantity / promotion.getTotalEventValue() >= 1;
+    }
+
+    public long getFreeCnt(long purchaseQuantity) {
+        return purchaseQuantity / promotion.getTotalEventValue();
+    }
 }

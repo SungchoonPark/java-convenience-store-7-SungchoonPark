@@ -73,4 +73,24 @@ public class ProductPromotion {
             }
         }
     }
+
+    public boolean isExistFree(long purchaseQuantity, LocalDateTime today) {
+        for (PromotionInfo promotion : promotions) {
+            if(promotion.isOngoingPromotion(today)) {
+                return promotion.isExistFree(purchaseQuantity);
+            }
+        }
+
+        return false;
+    }
+
+    public long getFreeCnt(long purchaseQuantity, LocalDateTime today) {
+        for (PromotionInfo promotion : promotions) {
+            if(promotion.isOngoingPromotion(today)) {
+                return promotion.getFreeCnt(purchaseQuantity);
+            }
+        }
+
+        return 0L;
+    }
 }

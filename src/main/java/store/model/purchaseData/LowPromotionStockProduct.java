@@ -1,16 +1,22 @@
 package store.model.purchaseData;
 
+import store.dto.FreeInfo;
+import store.dto.ProductListData;
 import store.model.Product;
+
+import java.text.NumberFormat;
 
 public class LowPromotionStockProduct {
     private final Product product;
     private long purchaseQuantity;
     private long lowQuantity;
+    private long promotionApplyQuantity;
 
     public LowPromotionStockProduct(Product product, long purchaseQuantity, long lowQuantity) {
         this.product = product;
         this.purchaseQuantity = purchaseQuantity;
         this.lowQuantity = lowQuantity;
+        this.promotionApplyQuantity = purchaseQuantity - lowQuantity;
     }
 
     public String getProductName() {
@@ -25,26 +31,29 @@ public class LowPromotionStockProduct {
         this.purchaseQuantity -= lowQuantity;
     }
 
-    public long getTotalPrice() {
-        // 프로모션 적용 전 전체 금액을 구하는 메서드
-
-        return 0L;
+    public long getFreePrice() {
+        return product.getTotalPrice(product.getFreeCnt(purchaseQuantity));
     }
 
-    public int getFreePrice() {
-        // 할인 금액을 구하는 메서드
-        // 선수로 프로모션 몇개 적용되는지 구해야됨
-
-        return 0;
+    public ProductListData generateProductListData() {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        String price = numberFormat.format(product.getTotalPrice(purchaseQuantity));
+        return new ProductListData(product.getProductName(), purchaseQuantity, price);
     }
 
-    public String getFreeInfo() {
-        // 콜라 1 처럼 상품명과 증정개수를 돌려주면 됨
-        // 프로모션 몇개 적용되는지 함수 사용하면 될듯
-        // 이 함수는 추후 dto로 바뀔수도 있음
-
-        return null;
+    public boolean isExistFree() {
+        return product.isExistFree(purchaseQuantity);
     }
 
+    public FreeInfo generateFreeInfo() {
+        return new FreeInfo(product.getProductName(), product.getFreeCnt(promotionApplyQuantity));
+    }
 
+    public long getPurchaseQuantity() {
+        return purchaseQuantity;
+    }
+
+    public long getPurchasePrice() {
+        return product.getTotalPrice(purchaseQuantity);
+    }
 }

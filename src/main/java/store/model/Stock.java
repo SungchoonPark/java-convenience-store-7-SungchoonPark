@@ -1,5 +1,6 @@
 package store.model;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import store.dto.StockInfo;
 import store.dto.Stocks;
 import store.exception.ExceptionMessage;
@@ -26,7 +27,7 @@ public class Stock {
 
     public PurchaseItem validPurchaseItem(TemporaryPurchaseInfo purchaseItem) {
         Product product = findProductByName(purchaseItem.getProductName());
-        product.checkValidPurchaseQuantity(purchaseItem.getQuantity(), LocalDateTime.now());
+        product.checkValidPurchaseQuantity(purchaseItem.getQuantity(), DateTimes.now());
 
         return new PurchaseItem(product, purchaseItem.getQuantity());
     }

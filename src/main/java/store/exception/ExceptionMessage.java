@@ -15,6 +15,6 @@ public enum ExceptionMessage {
     }
 
     public String getMessage() {
-        return String.join(COMMON_ERROR.message, message);
+        return COMMON_ERROR.message + message;
     }
 }

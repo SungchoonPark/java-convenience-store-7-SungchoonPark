@@ -1,6 +1,10 @@
 package store.model.purchaseData;
 
+import store.dto.FreeInfo;
+import store.dto.ProductListData;
 import store.model.Product;
+
+import java.text.NumberFormat;
 
 public class UnderQuantityProduct {
     private final Product product;
@@ -19,25 +23,30 @@ public class UnderQuantityProduct {
         purchaseQuantity++;
     }
 
-    public String getTotalPrice() {
-        // 할인전 전체 금액 (가격 * 수량)
-
-        return "";
+    public ProductListData generateProductListData() {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        String price = numberFormat.format(product.getTotalPrice(purchaseQuantity));
+        System.out.println("price = " + price);
+        return new ProductListData(product.getProductName(), purchaseQuantity, price);
     }
 
-    public String getDiscountPrice() {
-        // 할인 금액
-
-        return "";
+    public boolean isExistFree() {
+        return product.isExistFree(purchaseQuantity);
     }
 
-    public String getDiscountApplyPrice() {
-        // 할인 후 금액 (전체 금액 - 할인 금액)
-
-        return "";
+    public FreeInfo generateFreeInfo() {
+        return new FreeInfo(product.getProductName(), product.getFreeCnt(purchaseQuantity));
     }
 
-    public void getPromotionApplyCount() {
-        // 공짜 개수 구하는 메서드 -> 추후 증정으로 보여질 것들임.
+    public long getPurchaseQuantity() {
+        return purchaseQuantity;
+    }
+
+    public long getPurchasePrice() {
+        return product.getTotalPrice(purchaseQuantity);
+    }
+
+    public long getFreePrice() {
+        return product.getTotalPrice(product.getFreeCnt(purchaseQuantity));
     }
 }

@@ -1,6 +1,9 @@
 package store.controller;
 
 import camp.nextstep.edu.missionutils.DateTimes;
+import store.dto.FreeInfo;
+import store.dto.PriceInfo;
+import store.dto.ProductListData;
 import store.dto.Stocks;
 import store.model.PurchaseItems;
 import store.model.TemporaryPurchaseList;
@@ -12,6 +15,7 @@ import store.view.InputView;
 import store.view.OutputView;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class StoreController {
     private final InputView inputView;
@@ -38,6 +42,26 @@ public class StoreController {
         }
 
         // 영수증 출력.
+        printPurchasePayInfo(
+                purchaseProducts.getTotalProductList(),
+                purchaseProducts.getFreeInfo(),
+                purchaseProducts.getPriceInfo()
+        );
+
+        // 다시할건지 입력받기
+        if (readRePurchaseUserChoice().equals("Y")) {
+            run();
+        }
+    }
+
+    private String readRePurchaseUserChoice() {
+        while(true) {
+            try {
+                return inputView.printRePurchase();
+            } catch (IllegalArgumentException e) {
+                outputView.printExceptionMessage(e.getMessage());
+            }
+        }
     }
 
     private String readApplyMembershipUserChoice() {
@@ -98,4 +122,7 @@ public class StoreController {
         }
     }
 
+    private void printPurchasePayInfo(List<ProductListData> totalProductList, List<FreeInfo> freeInfo, PriceInfo priceInfo) {
+        inputView.printPurchasePayInfo(totalProductList, freeInfo, priceInfo);
+    }
 }

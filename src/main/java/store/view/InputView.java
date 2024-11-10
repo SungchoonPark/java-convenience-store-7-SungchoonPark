@@ -9,38 +9,17 @@ import java.util.List;
 
 public class InputView {
 
-    private static final String STOCK_MESSAGE = "안녕하세요. W편의점입니다.\n현재 보유하고 있는 상품입니다.\n";
     private static final String PURCHASE_MESSAGE = "구매하실 상품명과 수량을 입력해 주세요. (예: [사이다-2],[감자칩-1])";
     private static final String UNDER_QUANTITY_MESSAGE = "현재 %s은(는) 1개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)";
     private static final String LOW_PROMOTION_STOCK_MESSAGE = "현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)";
     private static final String MEMBERSHIP_MESSAGE = "멤버십 할인을 받으시겠습니까? (Y/N)";
-    private static final String RE_PURCHASE_MESSAGE = "감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)";
+    private static final String RE_PURCHASE_MESSAGE = "\n감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)";
 
     public String readPurchaseInfo() {
         System.out.println(PURCHASE_MESSAGE);
         String purchaseInfo = Console.readLine();
         checkUserInputIsNull(purchaseInfo);
         return purchaseInfo;
-    }
-
-    public void printNowStock(Stocks stocks) {
-        System.out.println(STOCK_MESSAGE);
-        System.out.println(formatNowStock(stocks));
-    }
-
-    private String formatNowStock(Stocks stocks) {
-        StringBuilder nowStock = new StringBuilder();
-        for (StockInfo stock : stocks.stocks()) {
-            if (stock.promotionInfo() == null) {
-                nowStock.append("- ").append(stock.formatGeneralInfo()).append("\n");
-                continue;
-            }
-
-            nowStock.append("- ").append(stock.formatPromotionInfo()).append("\n");
-            nowStock.append("- ").append(stock.formatGeneralInfo()).append("\n");
-        }
-
-        return nowStock.toString();
     }
 
     public String readUnderQuantityUserChoice(String productName) {
@@ -80,29 +59,6 @@ public class InputView {
         if (!userChoice.contains("Y") && !userChoice.contains("N")) {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_INPUT.getMessage());
         }
-    }
-
-    public void printPurchasePayInfo(List<ProductListData> totalProductList, List<FreeInfo> freeInfo, PriceInfo priceInfo) {
-        System.out.println("===========W 편의점=============");
-        System.out.printf("%-10s %5s %10s%n", "상품명", "수량", "금액");
-
-        // 상품 리스트 출력
-        for (ProductListData product : totalProductList) {
-            System.out.printf("%-10s %5d %10s%n", product.productName(), product.quantity(), product.price());
-        }
-
-        System.out.println("===========증\t정=============");
-
-        // 증정 품목 출력
-        for (FreeInfo free : freeInfo) {
-            System.out.printf("%-10s %5d%n", free.productName(), free.freeCnt());
-        }
-
-        System.out.println("==============================");
-        System.out.printf("%-10s %5d %10s%n", "총구매액", priceInfo.totalQuantity(), priceInfo.totalPrice());
-        System.out.printf("%-10s %18s%n", "행사할인", priceInfo.promotionPrice());
-        System.out.printf("%-10s %18s%n", "멤버십할인", priceInfo.membershipPrice());
-        System.out.printf("%-10s %18s%n", "내실돈", priceInfo.payPrice());
     }
 
     public String printRePurchase() {

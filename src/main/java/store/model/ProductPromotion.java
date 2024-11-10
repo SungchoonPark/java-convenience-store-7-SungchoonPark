@@ -16,6 +16,18 @@ public class ProductPromotion {
         this.promotions = new ArrayList<>(promotions);
     }
 
+    public boolean isExistTodayPromotion(LocalDateTime today) {
+        boolean isExistTodayPromotion = false;
+        for (PromotionInfo promotion : promotions) {
+            if (promotion.isOngoingPromotion(today)){
+                isExistTodayPromotion = true;
+                break;
+            }
+        }
+
+        return isExistTodayPromotion;
+    }
+
     public StockPromotionInfo getTodayPromotionInfo(LocalDateTime today) {
         for (PromotionInfo promotion : promotions) {
             if(promotion.isOngoingPromotion(today)) {
@@ -92,5 +104,15 @@ public class ProductPromotion {
         }
 
         return 0L;
+    }
+
+    public long minusPromotionQuantity(long purchaseQuantity, LocalDateTime today) {
+        for (PromotionInfo promotion : promotions) {
+            if(promotion.isOngoingPromotion(today)) {
+                return promotion.minusPromotionQuantity(purchaseQuantity);
+            }
+        }
+
+        return 0;
     }
 }

@@ -17,6 +17,7 @@ public class GeneralProduct {
     public void updateQuantity() {
         // 구매한 수량만큼 product의 재고에서 깎으면 됨.
         // 최후에 하면 됨.
+        product.updateQuantity(purchaseQuantity);
     }
 
     public long getPrice() {
@@ -26,7 +27,6 @@ public class GeneralProduct {
     public ProductListData generateProductListData() {
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
         String price = numberFormat.format(product.getTotalPrice(purchaseQuantity));
-        System.out.println("price = " + price);
         return new ProductListData(product.getProductName(), purchaseQuantity, price);
     }
 

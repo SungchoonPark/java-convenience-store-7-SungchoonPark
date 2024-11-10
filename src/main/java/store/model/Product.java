@@ -79,4 +79,15 @@ public class Product {
     private long getTotalQuantity(LocalDateTime now) {
         return productInfo.getQuantity() + promotions.getTodayPromotionQuantity(now);
     }
+
+    public void updateQuantity(long purchaseQuantity) {
+        if (promotions.isExistTodayPromotion(DateTimes.now())) {
+            // 프로모션 있는 경우 프로모션 부터 재고 삭감
+            long remainingQuantity = promotions.minusPromotionQuantity(purchaseQuantity, DateTimes.now());
+            productInfo.updateQuantity(remainingQuantity);
+            return;
+        }
+
+        productInfo.updateQuantity(purchaseQuantity);
+    }
 }

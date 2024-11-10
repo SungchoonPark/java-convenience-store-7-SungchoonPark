@@ -22,6 +22,7 @@ public class PromotionNotApplyProduct {
 
     public void updateQuantity() {
         // 구매한 수량만큼 product의 재고에서 깎으면 됨.
+        product.updateQuantity(purchaseQuantity);
     }
 
     public boolean isExistFree() {
@@ -37,12 +38,15 @@ public class PromotionNotApplyProduct {
     public ProductListData generateProductListData() {
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
         String price = numberFormat.format(product.getTotalPrice(purchaseQuantity));
-        System.out.println("price = " + price);
         return new ProductListData(product.getProductName(), purchaseQuantity, price);
     }
 
     public FreeInfo generateFreeInfo() {
         return new FreeInfo(product.getProductName(), product.getFreeCnt(purchaseQuantity));
+    }
+
+    public long getFreeCnt() {
+        return product.getFreeCnt(purchaseQuantity);
     }
 
     public long getPurchaseQuantity() {

@@ -26,7 +26,6 @@ public class UnderQuantityProduct {
     public ProductListData generateProductListData() {
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
         String price = numberFormat.format(product.getTotalPrice(purchaseQuantity));
-        System.out.println("price = " + price);
         return new ProductListData(product.getProductName(), purchaseQuantity, price);
     }
 
@@ -36,6 +35,10 @@ public class UnderQuantityProduct {
 
     public FreeInfo generateFreeInfo() {
         return new FreeInfo(product.getProductName(), product.getFreeCnt(purchaseQuantity));
+    }
+
+    public long getFreeCnt() {
+        return product.getFreeCnt(purchaseQuantity);
     }
 
     public long getPurchaseQuantity() {
@@ -48,5 +51,9 @@ public class UnderQuantityProduct {
 
     public long getFreePrice() {
         return product.getTotalPrice(product.getFreeCnt(purchaseQuantity));
+    }
+
+    public void updateQuantity() {
+        product.updateQuantity(purchaseQuantity);
     }
 }

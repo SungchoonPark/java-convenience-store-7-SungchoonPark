@@ -27,7 +27,7 @@ public class LowPromotionStockProduct {
         return lowQuantity;
     }
 
-    public void updateQuantity() {
+    public void minusNotPurchaseQuantity() {
         this.purchaseQuantity -= lowQuantity;
     }
 
@@ -55,5 +55,13 @@ public class LowPromotionStockProduct {
 
     public long getPurchasePrice() {
         return product.getTotalPrice(purchaseQuantity);
+    }
+
+    public void updateQuantity() {
+        product.updateQuantity(purchaseQuantity);
+    }
+
+    public long getFreeCnt() {
+        return product.getFreeCnt(purchaseQuantity);
     }
 }

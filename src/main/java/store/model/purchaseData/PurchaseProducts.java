@@ -96,13 +96,13 @@ public class PurchaseProducts {
             totalQuantity += generalProduct.getPurchaseQuantity();
         }
         for (PromotionNotApplyProduct promotionNotApplyProduct : promotionNotApplyProducts) {
-            totalQuantity += promotionNotApplyProduct.getPurchaseQuantity();
+            totalQuantity += (promotionNotApplyProduct.getPurchaseQuantity() - promotionNotApplyProduct.getFreeCnt());
         }
         for (UnderQuantityProduct underQuantityProduct : underQuantityProducts) {
-            totalQuantity += underQuantityProduct.getPurchaseQuantity();
+            totalQuantity += (underQuantityProduct.getPurchaseQuantity() - underQuantityProduct.getFreeCnt());
         }
         for (LowPromotionStockProduct lowPromotionStockProduct : lowPromotionStockProducts) {
-            totalQuantity += lowPromotionStockProduct.getPurchaseQuantity();
+            totalQuantity += (lowPromotionStockProduct.getPurchaseQuantity() - lowPromotionStockProduct.getFreeCnt());
         }
         return totalQuantity;
     }
@@ -156,4 +156,18 @@ public class PurchaseProducts {
         return getTotalPrice() - getPromotionPrice() - getMembershipDiscount();
     }
 
+    public void updateQuantity() {
+        for (GeneralProduct generalProduct : generalProducts) {
+            generalProduct.updateQuantity();
+        }
+        for (PromotionNotApplyProduct promotionNotApplyProduct : promotionNotApplyProducts) {
+            promotionNotApplyProduct.updateQuantity();
+        }
+        for (UnderQuantityProduct underQuantityProduct : underQuantityProducts) {
+            underQuantityProduct.updateQuantity();
+        }
+        for (LowPromotionStockProduct lowPromotionStockProduct : lowPromotionStockProducts) {
+            lowPromotionStockProduct.updateQuantity();
+        }
+    }
 }

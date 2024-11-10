@@ -73,4 +73,15 @@ public class PromotionInfo {
     public long getFreeCnt(long purchaseQuantity) {
         return purchaseQuantity / promotion.getTotalEventValue();
     }
+
+    public long minusPromotionQuantity(long purchaseQuantity) {
+        if (promotionQuantity < purchaseQuantity) {
+            long remainingQuantity = purchaseQuantity - promotionQuantity;
+            promotionQuantity = 0;
+            return remainingQuantity;
+        }
+
+        minusQuantity((int) purchaseQuantity);
+        return 0;
+    }
 }

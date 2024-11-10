@@ -31,7 +31,7 @@ public class StoreController {
     public void run() {
         LocalDateTime now = DateTimes.now();
         Stocks storeStock = storeService.getStoreStock(now);
-        inputView.printNowStock(storeStock);
+        outputView.printNowStock(storeStock);
 
         PurchaseItems purchaseItems = getPurchaseList();
         PurchaseProducts purchaseProducts = storeService.getPurchaseProducts(purchaseItems);
@@ -47,6 +47,9 @@ public class StoreController {
                 purchaseProducts.getFreeInfo(),
                 purchaseProducts.getPriceInfo()
         );
+
+        // 재고 갱신
+        purchaseProducts.updateQuantity();
 
         // 다시할건지 입력받기
         if (readRePurchaseUserChoice().equals("Y")) {
@@ -82,7 +85,7 @@ public class StoreController {
         }
         for (LowPromotionStockProduct lowPromotionStockProduct : purchaseProducts.getLowPromotionStockProducts()) {
             if(readLowPromotionStockUserChoice(lowPromotionStockProduct).equals("N")) {
-                lowPromotionStockProduct.updateQuantity();
+                lowPromotionStockProduct.minusNotPurchaseQuantity();
             }
         }
     }
@@ -123,6 +126,6 @@ public class StoreController {
     }
 
     private void printPurchasePayInfo(List<ProductListData> totalProductList, List<FreeInfo> freeInfo, PriceInfo priceInfo) {
-        inputView.printPurchasePayInfo(totalProductList, freeInfo, priceInfo);
+        outputView.printPurchasePayInfo(totalProductList, freeInfo, priceInfo);
     }
 }

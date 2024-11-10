@@ -16,6 +16,10 @@ public class ProductInfo {
         this.quantity = quantity;
     }
 
+    public void updateQuantity(long purchaseQuantity) {
+        quantity -= purchaseQuantity;
+    }
+
     public StockGeneralInfo getStockGeneralInfo() {
         return new StockGeneralInfo(
                 name,

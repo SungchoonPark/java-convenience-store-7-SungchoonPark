@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeneralProducts {
-    private final List<GeneralProduct> generalProducts;
+    private final List<GeneralProduct> products;
     private long membershipPrice;
 
-    public GeneralProducts(List<GeneralProduct> generalProducts) {
-        this.generalProducts = generalProducts;
+    public GeneralProducts(List<GeneralProduct> products) {
+        this.products = products;
         this.membershipPrice = 0;
     }
 
     public List<ProductListData> generateProductListData() {
         List<ProductListData> productListDatas = new ArrayList<>();
-        for (GeneralProduct generalProduct : generalProducts) {
+        for (GeneralProduct generalProduct : products) {
             productListDatas.add(generalProduct.generateProductListData());
         }
         return productListDatas;
@@ -24,11 +24,11 @@ public class GeneralProducts {
 
     public void applyMembership() {
         long totalPrice = 0L;
-        for (GeneralProduct generalProduct : generalProducts) {
+        for (GeneralProduct generalProduct : products) {
             totalPrice += generalProduct.getPrice();
         }
 
-        membershipPrice =  Math.min((int) Math.round(totalPrice * 0.3), 8000);
+        membershipPrice = Math.min((int) Math.round(totalPrice * 0.3), 8000);
     }
 
     public long getMembershipPrice() {
@@ -37,7 +37,7 @@ public class GeneralProducts {
 
     public long getTotalQuantity() {
         long totalQuantity = 0;
-        for (GeneralProduct generalProduct : generalProducts) {
+        for (GeneralProduct generalProduct : products) {
             totalQuantity += generalProduct.getPurchaseQuantity();
         }
         return totalQuantity;
@@ -45,14 +45,14 @@ public class GeneralProducts {
 
     public long getTotalPrice() {
         long totalQuantity = 0;
-        for (GeneralProduct generalProduct : generalProducts) {
+        for (GeneralProduct generalProduct : products) {
             totalQuantity += generalProduct.getPurchasePrice();
         }
         return totalQuantity;
     }
 
     public void updateQuantity() {
-        for (GeneralProduct generalProduct : generalProducts) {
+        for (GeneralProduct generalProduct : products) {
             generalProduct.updateQuantity();
         }
     }

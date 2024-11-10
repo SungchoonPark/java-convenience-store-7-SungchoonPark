@@ -19,7 +19,7 @@ public class ProductPromotion {
     public boolean isExistTodayPromotion(LocalDateTime today) {
         boolean isExistTodayPromotion = false;
         for (PromotionInfo promotion : promotions) {
-            if (promotion.isOngoingPromotion(today)){
+            if (promotion.isOngoingPromotion(today)) {
                 isExistTodayPromotion = true;
                 break;
             }
@@ -30,7 +30,7 @@ public class ProductPromotion {
 
     public StockPromotionInfo getTodayPromotionInfo(LocalDateTime today) {
         for (PromotionInfo promotion : promotions) {
-            if(promotion.isOngoingPromotion(today)) {
+            if (promotion.isOngoingPromotion(today)) {
                 return promotion.getStockPromotionInfo();
             }
         }
@@ -40,7 +40,7 @@ public class ProductPromotion {
 
     public long getTodayPromotionQuantity(LocalDateTime today) {
         for (PromotionInfo promotion : promotions) {
-            if(promotion.isOngoingPromotion(today)) {
+            if (promotion.isOngoingPromotion(today)) {
                 return promotion.getPromotionQuantity();
             }
         }
@@ -50,7 +50,7 @@ public class ProductPromotion {
 
     public boolean isUnderQuantity(long purchaseQuantity, LocalDateTime today) {
         for (PromotionInfo promotion : promotions) {
-            if(promotion.isOngoingPromotion(today)) {
+            if (promotion.isOngoingPromotion(today)) {
                 return promotion.isUnderQuantity(purchaseQuantity);
             }
         }
@@ -60,7 +60,7 @@ public class ProductPromotion {
 
     public boolean isLowPromotionStock(long purchaseQuantity, LocalDateTime today) {
         for (PromotionInfo promotion : promotions) {
-            if(promotion.isOngoingPromotion(today)) {
+            if (promotion.isOngoingPromotion(today)) {
                 return promotion.isLowPromotionStock(purchaseQuantity);
             }
         }
@@ -70,7 +70,7 @@ public class ProductPromotion {
 
     public long calculateLowPromotionStock(long purchaseQuantity, LocalDateTime today) {
         for (PromotionInfo promotion : promotions) {
-            if(promotion.isOngoingPromotion(today)) {
+            if (promotion.isOngoingPromotion(today)) {
                 return promotion.calculateLowPromotionStock(purchaseQuantity);
             }
         }
@@ -78,19 +78,9 @@ public class ProductPromotion {
         return 0L;
     }
 
-    public boolean isExistFree(long purchaseQuantity, LocalDateTime today) {
-        for (PromotionInfo promotion : promotions) {
-            if(promotion.isOngoingPromotion(today)) {
-                return promotion.isExistFree(purchaseQuantity);
-            }
-        }
-
-        return false;
-    }
-
     public long getFreeCnt(long purchaseQuantity, LocalDateTime today) {
         for (PromotionInfo promotion : promotions) {
-            if(promotion.isOngoingPromotion(today)) {
+            if (promotion.isOngoingPromotion(today)) {
                 return promotion.getFreeCnt(purchaseQuantity);
             }
         }
@@ -100,7 +90,7 @@ public class ProductPromotion {
 
     public long minusPromotionQuantity(long purchaseQuantity, LocalDateTime today) {
         for (PromotionInfo promotion : promotions) {
-            if(promotion.isOngoingPromotion(today)) {
+            if (promotion.isOngoingPromotion(today)) {
                 return promotion.minusPromotionQuantity(purchaseQuantity);
             }
         }

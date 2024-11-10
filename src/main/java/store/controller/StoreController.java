@@ -58,7 +58,7 @@ public class StoreController {
     }
 
     private String readRePurchaseUserChoice() {
-        while(true) {
+        while (true) {
             try {
                 return inputView.printRePurchase();
             } catch (IllegalArgumentException e) {
@@ -68,7 +68,7 @@ public class StoreController {
     }
 
     private String readApplyMembershipUserChoice() {
-        while(true) {
+        while (true) {
             try {
                 return inputView.readMembershipUserChoice();
             } catch (IllegalArgumentException e) {
@@ -84,7 +84,7 @@ public class StoreController {
 
     private void readLowPromotionStockProductsUserChoice(PurchaseProducts purchaseProducts) {
         for (LowPromotionStockProduct lowPromotionStockProduct : purchaseProducts.getLowPromotionStockProducts()) {
-            if(readLowPromotionStockUserChoice(lowPromotionStockProduct).equals(UserChoice.NO.getValue())) {
+            if (readLowPromotionStockUserChoice(lowPromotionStockProduct).equals(UserChoice.NO.getValue())) {
                 lowPromotionStockProduct.minusNotPurchaseQuantity();
             }
         }

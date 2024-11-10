@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TemporaryPurchaseInfo {
-    private static final Pattern VALID_PURCHASE_FORMAT = Pattern.compile("^\\[([a-zA-Z가-힣0-9]+)-(\\d+)\\]$");;
+    private static final Pattern VALID_PURCHASE_FORMAT = Pattern.compile("^\\[([a-zA-Z가-힣0-9]+)-(\\d+)\\]$");
 
     private final String productName;
     private final long quantity;

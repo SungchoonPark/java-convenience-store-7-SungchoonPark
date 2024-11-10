@@ -19,12 +19,8 @@ public class PromotionNotApplyProduct {
         product.updateQuantity(purchaseQuantity);
     }
 
-    public boolean isExistFree() {
-        return product.isExistFree(purchaseQuantity);
-    }
-
     public long getFreePrice() {
-        return product.getTotalPrice(product.getFreeCnt(purchaseQuantity));
+        return product.getTotalPrice(getFreeCnt());
     }
 
     public long getFreeCnt() {

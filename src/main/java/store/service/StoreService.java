@@ -44,7 +44,7 @@ public class StoreService {
         return purchaseProducts.getTotalProductList();
     }
 
-    public  List<FreeInfo> getFreeInfo(PurchaseProducts purchaseProducts) {
+    public List<FreeInfo> getFreeInfo(PurchaseProducts purchaseProducts) {
         return purchaseProducts.getFreeInfo();
     }
 

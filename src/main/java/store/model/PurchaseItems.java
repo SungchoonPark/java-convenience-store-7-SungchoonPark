@@ -51,7 +51,7 @@ public class PurchaseItems {
     public List<LowPromotionStockProduct> getLowPromotionStockItems() {
         List<LowPromotionStockProduct> lowPromotionStockItems = new ArrayList<>();
         for (PurchaseItem purchaseProduct : purchaseProducts) {
-            if(purchaseProduct.isLowPromotionStock()) {
+            if (purchaseProduct.isLowPromotionStock()) {
                 lowPromotionStockItems.add(purchaseProduct.generateLowPromotionStock());
             }
         }

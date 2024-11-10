@@ -1,5 +1,6 @@
 package store.model.storeData;
 
+import store.constant.StoreConstant;
 import store.dto.StockPromotionInfo;
 
 import java.time.LocalDateTime;
@@ -56,18 +57,14 @@ public class PromotionInfo {
 
     private String formatQuantity() {
         if (promotionQuantity != 0) {
-            return promotionQuantity + "개";
+            return promotionQuantity + StoreConstant.COUNT.getValue();
         }
 
-        return "재고 없음";
+        return StoreConstant.OUT_OF_STOCK.getValue();
     }
 
     public void minusQuantity(int purchaseQuantity) {
         promotionQuantity -= purchaseQuantity;
-    }
-
-    public boolean isExistFree(long purchaseQuantity) {
-        return purchaseQuantity / promotion.getTotalEventValue() >= 1;
     }
 
     public long getFreeCnt(long purchaseQuantity) {

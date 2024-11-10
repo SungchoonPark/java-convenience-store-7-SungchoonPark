@@ -21,11 +21,11 @@ public class PurchaseProducts {
     }
 
     public List<UnderQuantityProduct> getUnderQuantityProducts() {
-        return underQuantityProducts.getUnderQuantityProducts();
+        return underQuantityProducts.getProducts();
     }
 
     public List<LowPromotionStockProduct> getLowPromotionStockProducts() {
-        return lowPromotionStockProducts.getLowPromotionStockProducts();
+        return lowPromotionStockProducts.getProducts();
     }
 
     public void applyMembership() {
@@ -34,10 +34,12 @@ public class PurchaseProducts {
 
     public List<ProductListData> getTotalProductList() {
         List<ProductListData> productListDatas = new ArrayList<>();
+
         productListDatas.addAll(generalProducts.generateProductListData());
         productListDatas.addAll(promotionNotApplyProducts.generateProductListData());
         productListDatas.addAll(underQuantityProducts.generateProductListData());
         productListDatas.addAll(lowPromotionStockProducts.generateProductListData());
+
         return productListDatas;
     }
 

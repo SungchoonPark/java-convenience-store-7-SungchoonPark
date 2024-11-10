@@ -1,6 +1,7 @@
 package store.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import store.constant.UserChoice;
 import store.exception.ExceptionMessage;
 import store.model.purchaseData.LowPromotionStockProduct;
 
@@ -50,7 +51,7 @@ public class InputView {
     }
 
     private void checkValidateUserChoice(String userChoice) {
-        if (!userChoice.contains("Y") && !userChoice.contains("N")) {
+        if (!userChoice.contains(UserChoice.YES.getValue()) && !userChoice.contains(UserChoice.NO.getValue())) {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_INPUT.getMessage());
         }
     }

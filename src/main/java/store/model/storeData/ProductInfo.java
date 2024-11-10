@@ -1,5 +1,6 @@
 package store.model.storeData;
 
+import store.constant.StoreConstant;
 import store.dto.StockGeneralInfo;
 
 import java.text.NumberFormat;
@@ -38,15 +39,15 @@ public class ProductInfo {
 
     private String formatPrice() {
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
-        return numberFormat.format(price) + "원";
+        return numberFormat.format(price) + StoreConstant.WON.getValue();
     }
 
     private String formatQuantity() {
         if (quantity != 0) {
-            return quantity + "개";
+            return quantity + StoreConstant.COUNT.getValue();
         }
 
-        return "재고 없음";
+        return StoreConstant.OUT_OF_STOCK.getValue();
     }
 
     public String getProductName() {

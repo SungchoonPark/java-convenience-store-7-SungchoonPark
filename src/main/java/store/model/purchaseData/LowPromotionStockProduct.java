@@ -41,12 +41,8 @@ public class LowPromotionStockProduct {
         return new ProductListData(product.getProductName(), purchaseQuantity, price);
     }
 
-    public boolean isExistFree() {
-        return product.isExistFree(purchaseQuantity);
-    }
-
     public FreeInfo generateFreeInfo() {
-        return new FreeInfo(product.getProductName(), product.getFreeCnt(promotionApplyQuantity));
+        return new FreeInfo(product.getProductName(), getFreeCnt());
     }
 
     public long getPurchaseQuantity() {
@@ -61,7 +57,7 @@ public class LowPromotionStockProduct {
         product.updateQuantity(purchaseQuantity);
     }
 
-    public long getFreeCnt() {
+    private long getFreeCnt() {
         return product.getFreeCnt(purchaseQuantity);
     }
 }

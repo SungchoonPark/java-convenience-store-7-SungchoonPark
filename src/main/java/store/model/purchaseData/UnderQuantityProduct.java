@@ -32,10 +32,6 @@ public class UnderQuantityProduct {
         );
     }
 
-    public boolean isExistFree() {
-        return product.isExistFree(purchaseQuantity);
-    }
-
     public FreeInfo generateFreeInfo() {
         return new FreeInfo(
                 product.getProductName(),

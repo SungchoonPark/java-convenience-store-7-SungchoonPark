@@ -64,10 +64,6 @@ public class Product {
         return productInfo.getTotalPrice(purchaseQuantity);
     }
 
-    public boolean isExistFree(long purchaseQuantity) {
-        return promotions.isExistFree(purchaseQuantity, DateTimes.now());
-    }
-
     public long getFreeCnt(long purchaseQuantity) {
         return promotions.getFreeCnt(purchaseQuantity, DateTimes.now());
     }

@@ -28,7 +28,7 @@ public class DataLoader {
             String line;
             reader.readLine();
 
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 String[] promotionInfos = line.split(",");
 
                 String promotionName = promotionInfos[0];
@@ -52,7 +52,7 @@ public class DataLoader {
             String line;
             reader.readLine();
 
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 String[] productInfos = line.split(",");
 
                 String productName = productInfos[0];

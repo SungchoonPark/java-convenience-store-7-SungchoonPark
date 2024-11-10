@@ -1,10 +1,10 @@
 package store.service;
 
 import store.dto.Stocks;
-import store.dto.UnderQuantityItem;
 import store.model.PurchaseItems;
 import store.model.TemporaryPurchaseList;
 import store.model.Store;
+import store.model.purchaseData.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,7 +24,17 @@ public class StoreService {
         return store.validateTemporaryPurchaseItems(temporaryPurchaseList);
     }
 
-    public List<UnderQuantityItem> getPromotionUnderQuantity(PurchaseItems purchaseItems) {
-        return purchaseItems.getPromotionUnderQuantity();
+    public PurchaseProducts getPurchaseProducts(PurchaseItems purchaseItems) {
+        List<GeneralProduct> generalProducts = purchaseItems.getGeneralProducts();
+        List<PromotionNotApplyProduct> promotionNotApplyProducts = purchaseItems.getPromotionNotApplyProducts();
+        List<UnderQuantityProduct> underQuantityProducts = purchaseItems.getPromotionUnderQuantity();
+        List<LowPromotionStockProduct> lowPromotionStockProducts = purchaseItems.getLowPromotionStockItems();
+
+        return new PurchaseProducts(
+                generalProducts,
+                promotionNotApplyProducts,
+                underQuantityProducts,
+                lowPromotionStockProducts
+        );
     }
 }

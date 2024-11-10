@@ -31,8 +31,32 @@ public class Product {
         }
     }
 
+    public boolean isGeneralProduct() {
+        return promotions.getTodayPromotionInfo(LocalDateTime.now()) == null;
+    }
+
+    public boolean isPromotionNotApplyProduct(long purchaseQuantity) {
+        if (promotions.getTodayPromotionInfo(LocalDateTime.now()) == null) {
+            return false;
+        }
+
+        if(!isUnderQuantity(purchaseQuantity) && !isLowPromotionStock(purchaseQuantity)) {
+            return true;
+        }
+
+        return false;
+    }
+
     public boolean isUnderQuantity(long purchaseQuantity) {
         return promotions.isUnderQuantity(purchaseQuantity, LocalDateTime.now());
+    }
+
+    public boolean isLowPromotionStock(long purchaseQuantity) {
+        return promotions.isLowPromotionStock(purchaseQuantity, LocalDateTime.now());
+    }
+
+    public long getLowPromotionStock(long purchaseQuantity) {
+        return promotions.calculateLowPromotionStock(purchaseQuantity, LocalDateTime.now());
     }
 
     public String getProductName() {
@@ -43,7 +67,8 @@ public class Product {
         return productInfo.getQuantity() + promotions.getTodayPromotionQuantity(now);
     }
 
-    public void updatePromotionQuantity(int purchaseQuantity) {
-        promotions.updatePromotionQuantity(purchaseQuantity, LocalDateTime.now());
+
+    public long getTotalPrice(long purchaseQuantity) {
+        return productInfo.getTotalPrice(purchaseQuantity);
     }
 }

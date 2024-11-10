@@ -48,4 +48,8 @@ public class ProductInfo {
     public String getProductName() {
         return name;
     }
+
+    public long getTotalPrice(long purchaseQuantity) {
+        return price * purchaseQuantity;
+    }
 }

@@ -46,6 +46,26 @@ public class ProductPromotion {
         return false;
     }
 
+    public boolean isLowPromotionStock(long purchaseQuantity, LocalDateTime today) {
+        for (PromotionInfo promotion : promotions) {
+            if(promotion.isOngoingPromotion(today)) {
+                return promotion.isLowPromotionStock(purchaseQuantity);
+            }
+        }
+
+        return false;
+    }
+
+    public long calculateLowPromotionStock(long purchaseQuantity, LocalDateTime today) {
+        for (PromotionInfo promotion : promotions) {
+            if(promotion.isOngoingPromotion(today)) {
+                return promotion.calculateLowPromotionStock(purchaseQuantity);
+            }
+        }
+
+        return 0L;
+    }
+
     public void updatePromotionQuantity(int purchaseQuantity, LocalDateTime today) {
         for (PromotionInfo promotion : promotions) {
             if(promotion.isOngoingPromotion(today)) {

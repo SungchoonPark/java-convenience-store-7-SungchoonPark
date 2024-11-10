@@ -33,7 +33,7 @@ public class Promotion {
         return purchaseQuantity % (buy + get) == buy;
     }
 
-    public void minusQuantity(int purchaseQuantity) {
-
+    public long getTotalEventValue (){
+        return buy + get;
     }
 }

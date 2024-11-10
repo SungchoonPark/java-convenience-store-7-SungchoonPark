@@ -19,7 +19,4 @@ public class GeneralProduct {
     public long getPrice() {
         return product.getTotalPrice(purchaseQuantity);
     }
-
-
-
 }

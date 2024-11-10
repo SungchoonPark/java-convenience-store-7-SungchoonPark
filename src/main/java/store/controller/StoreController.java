@@ -33,7 +33,21 @@ public class StoreController {
         PurchaseProducts purchaseProducts = storeService.getPurchaseProducts(purchaseItems);
         readUserChoice(purchaseProducts);
 
-        // 영수증 보여주기
+        if (readApplyMembershipUserChoice().equals("Y")) {
+            purchaseProducts.applyMembership();
+        }
+
+        // 영수증 출력.
+    }
+
+    private String readApplyMembershipUserChoice() {
+        while(true) {
+            try {
+                return inputView.printMembership();
+            } catch (IllegalArgumentException e) {
+                outputView.printExceptionMessage(e.getMessage());
+            }
+        }
     }
 
     private void readUserChoice(PurchaseProducts purchaseProducts) {

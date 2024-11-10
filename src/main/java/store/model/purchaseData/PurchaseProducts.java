@@ -7,12 +7,14 @@ public class PurchaseProducts {
     private final List<PromotionNotApplyProduct> promotionNotApplyProducts;
     private final List<UnderQuantityProduct> underQuantityProducts;
     private final List<LowPromotionStockProduct> lowPromotionStockProducts;
+    private long memberShipPrice;
 
     public PurchaseProducts(List<GeneralProduct> generalProducts, List<PromotionNotApplyProduct> promotionNotApplyProducts, List<UnderQuantityProduct> underQuantityProducts, List<LowPromotionStockProduct> lowPromotionStockProducts) {
         this.generalProducts = generalProducts;
         this.promotionNotApplyProducts = promotionNotApplyProducts;
         this.underQuantityProducts = underQuantityProducts;
         this.lowPromotionStockProducts = lowPromotionStockProducts;
+        this.memberShipPrice = 0;
     }
 
     public List<UnderQuantityProduct> getUnderQuantityProducts() {
@@ -23,14 +25,14 @@ public class PurchaseProducts {
         return lowPromotionStockProducts;
     }
 
-//    public void applyMembership() {
-//        long totalPrice = 0L;
-//        for (GeneralProduct generalProduct : generalProducts) {
-//            totalPrice += generalProduct.getPrice();
-//        }
-//
-//        return (int) Math.round(totalPrice * 0.7);
-//    }
+    public void applyMembership() {
+        long totalPrice = 0L;
+        for (GeneralProduct generalProduct : generalProducts) {
+            totalPrice += generalProduct.getPrice();
+        }
+
+        memberShipPrice =  Math.min((int) Math.round(totalPrice * 0.3), 8000);
+    }
 
     public String getTotalProductList() {
         // 산 제품들의 이름과 재고, 가격등을 축적해서 가져와야할 메서드

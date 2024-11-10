@@ -58,6 +58,6 @@ public class LowPromotionStockProduct {
     }
 
     private long getFreeCnt() {
-        return product.getFreeCnt(purchaseQuantity);
+        return product.getFreeCnt(promotionApplyQuantity);
     }
 }

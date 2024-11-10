@@ -54,6 +54,7 @@ public class OutputView {
         System.out.println(GIFT_HEADER);
 
         for (FreeInfo free : freeInfo) {
+            if (free.freeCnt() == 0) continue;
             System.out.printf("%-10s %5d%n", free.productName(), free.freeCnt());
         }
 

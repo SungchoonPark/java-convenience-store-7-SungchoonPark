@@ -1,9 +1,11 @@
-package store.model;
+package store.model.storeData;
 
 import camp.nextstep.edu.missionutils.DateTimes;
 import store.dto.StockInfo;
 import store.dto.Stocks;
 import store.exception.ExceptionMessage;
+import store.model.PurchaseItem;
+import store.model.TemporaryPurchaseInfo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

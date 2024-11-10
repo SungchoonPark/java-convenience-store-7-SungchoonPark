@@ -1,6 +1,6 @@
 package store.loader;
 
-import store.model.*;
+import store.model.storeData.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;

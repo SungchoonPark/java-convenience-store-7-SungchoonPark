@@ -1,4 +1,4 @@
-package store.model;
+package store.model.storeData;
 
 import camp.nextstep.edu.missionutils.DateTimes;
 import store.dto.StockInfo;

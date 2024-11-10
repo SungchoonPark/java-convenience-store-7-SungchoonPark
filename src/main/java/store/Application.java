@@ -2,7 +2,7 @@ package store;
 
 import store.controller.StoreController;
 import store.loader.DataLoader;
-import store.model.Store;
+import store.model.storeData.Store;
 import store.service.StoreService;
 import store.view.InputView;
 import store.view.OutputView;

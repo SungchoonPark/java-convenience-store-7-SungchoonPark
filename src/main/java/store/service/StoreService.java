@@ -6,7 +6,7 @@ import store.dto.ProductListData;
 import store.dto.Stocks;
 import store.model.PurchaseItems;
 import store.model.TemporaryPurchaseList;
-import store.model.Store;
+import store.model.storeData.Store;
 import store.model.purchaseData.*;
 
 import java.time.LocalDateTime;

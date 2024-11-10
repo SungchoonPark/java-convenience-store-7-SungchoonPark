@@ -1,6 +1,10 @@
-package store.model;
+package store.model.storeData;
 
 import store.dto.Stocks;
+import store.model.PurchaseItem;
+import store.model.PurchaseItems;
+import store.model.TemporaryPurchaseInfo;
+import store.model.TemporaryPurchaseList;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package store.model.purchaseData;
 
 import store.dto.ProductListData;
-import store.model.Product;
+import store.model.storeData.Product;
 
 import java.text.NumberFormat;
 

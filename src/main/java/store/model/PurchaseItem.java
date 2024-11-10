@@ -4,6 +4,7 @@ import store.model.purchaseData.GeneralProduct;
 import store.model.purchaseData.LowPromotionStockProduct;
 import store.model.purchaseData.PromotionNotApplyProduct;
 import store.model.purchaseData.UnderQuantityProduct;
+import store.model.storeData.Product;
 
 public class PurchaseItem {
     private final Product product;

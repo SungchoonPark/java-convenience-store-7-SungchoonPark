@@ -1,6 +1,7 @@
 package store.controller;
 
 import camp.nextstep.edu.missionutils.DateTimes;
+import store.constant.UserChoice;
 import store.dto.FreeInfo;
 import store.dto.PriceInfo;
 import store.dto.ProductListData;
@@ -30,31 +31,30 @@ public class StoreController {
 
     public void run() {
         LocalDateTime now = DateTimes.now();
-        Stocks storeStock = storeService.getStoreStock(now);
-        outputView.printNowStock(storeStock);
-
-        PurchaseItems purchaseItems = getPurchaseList();
-        PurchaseProducts purchaseProducts = storeService.getPurchaseProducts(purchaseItems);
+        printTodayStoreStock(now);
+        PurchaseProducts purchaseProducts = storeService.getPurchaseProducts(getPurchaseList());
         readUserChoice(purchaseProducts);
+        applyMembershipByUserChoice(purchaseProducts);
+        printPurchasePayInfo(storeService.getTotalProductList(purchaseProducts), storeService.getFreeInfo(purchaseProducts), storeService.getPriceInfo(purchaseProducts));
+        storeService.updateProductQuantity(purchaseProducts);
+        rePurchaseByUserChoice();
+    }
 
-        if (readApplyMembershipUserChoice().equals("Y")) {
-            purchaseProducts.applyMembership();
-        }
-
-        // 영수증 출력.
-        printPurchasePayInfo(
-                purchaseProducts.getTotalProductList(),
-                purchaseProducts.getFreeInfo(),
-                purchaseProducts.getPriceInfo()
-        );
-
-        // 재고 갱신
-        purchaseProducts.updateQuantity();
-
-        // 다시할건지 입력받기
-        if (readRePurchaseUserChoice().equals("Y")) {
+    private void rePurchaseByUserChoice() {
+        if (readRePurchaseUserChoice().equals(UserChoice.YES.getValue())) {
             run();
         }
+    }
+
+    private void applyMembershipByUserChoice(PurchaseProducts purchaseProducts) {
+        if (readApplyMembershipUserChoice().equals(UserChoice.YES.getValue())) {
+            storeService.applyMembership(purchaseProducts);
+        }
+    }
+
+    private void printTodayStoreStock(LocalDateTime today) {
+        Stocks storeStock = storeService.getStoreStock(today);
+        outputView.printNowStock(storeStock);
     }
 
     private String readRePurchaseUserChoice() {
@@ -70,7 +70,7 @@ public class StoreController {
     private String readApplyMembershipUserChoice() {
         while(true) {
             try {
-                return inputView.printMembership();
+                return inputView.readMembershipUserChoice();
             } catch (IllegalArgumentException e) {
                 outputView.printExceptionMessage(e.getMessage());
             }
@@ -78,14 +78,22 @@ public class StoreController {
     }
 
     private void readUserChoice(PurchaseProducts purchaseProducts) {
-        for (UnderQuantityProduct underQuantityProduct : purchaseProducts.getUnderQuantityProducts()) {
-            if (readUnderQuantityUserChoice(underQuantityProduct).equals("Y")) {
-                underQuantityProduct.updatePurchaseQuantity();
+        readQuantityItemsUserUserChoice(purchaseProducts);
+        readLowPromotionStockProductsUserChoice(purchaseProducts);
+    }
+
+    private void readLowPromotionStockProductsUserChoice(PurchaseProducts purchaseProducts) {
+        for (LowPromotionStockProduct lowPromotionStockProduct : purchaseProducts.getLowPromotionStockProducts()) {
+            if(readLowPromotionStockUserChoice(lowPromotionStockProduct).equals(UserChoice.NO.getValue())) {
+                lowPromotionStockProduct.minusNotPurchaseQuantity();
             }
         }
-        for (LowPromotionStockProduct lowPromotionStockProduct : purchaseProducts.getLowPromotionStockProducts()) {
-            if(readLowPromotionStockUserChoice(lowPromotionStockProduct).equals("N")) {
-                lowPromotionStockProduct.minusNotPurchaseQuantity();
+    }
+
+    private void readQuantityItemsUserUserChoice(PurchaseProducts purchaseProducts) {
+        for (UnderQuantityProduct underQuantityProduct : purchaseProducts.getUnderQuantityProducts()) {
+            if (readUnderQuantityUserChoice(underQuantityProduct).equals(UserChoice.YES.getValue())) {
+                underQuantityProduct.updatePurchaseQuantity();
             }
         }
     }

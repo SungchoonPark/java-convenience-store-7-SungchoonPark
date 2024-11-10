@@ -7,6 +7,18 @@ import java.util.List;
 public class OutputView {
     private static final String STOCK_MESSAGE = "안녕하세요. W편의점입니다.\n현재 보유하고 있는 상품입니다.\n";
 
+    private static final String HEADER = "\n===========W 편의점=============";
+    private static final String PRODUCT_FORMAT = "%-10s %5s %10s%n";
+    private static final String PRODUCT_HEADER = "상품명";
+    private static final String QUANTITY_HEADER = "수량";
+    private static final String PRICE_HEADER = "금액";
+    private static final String GIFT_HEADER = "===========증\t정=============";
+    private static final String FOOTER = "==============================";
+    private static final String TOTAL_AMOUNT_LABEL = "총구매액";
+    private static final String PROMOTION_DISCOUNT_LABEL = "행사할인";
+    private static final String MEMBERSHIP_DISCOUNT_LABEL = "멤버십할인";
+    private static final String PAY_AMOUNT_LABEL = "내실돈";
+
     public void printExceptionMessage(String message) {
         System.out.println(message);
     }
@@ -32,25 +44,23 @@ public class OutputView {
     }
 
     public void printPurchasePayInfo(List<ProductListData> totalProductList, List<FreeInfo> freeInfo, PriceInfo priceInfo) {
-        System.out.println("\n===========W 편의점=============");
-        System.out.printf("%-10s %5s %10s%n", "상품명", "수량", "금액");
+        System.out.println(HEADER);
+        System.out.printf(PRODUCT_FORMAT, PRODUCT_HEADER, QUANTITY_HEADER, PRICE_HEADER);
 
-        // 상품 리스트 출력
         for (ProductListData product : totalProductList) {
-            System.out.printf("%-10s %5d %10s%n", product.productName(), product.quantity(), product.price());
+            System.out.printf(PRODUCT_FORMAT, product.productName(), product.quantity(), product.price());
         }
 
-        System.out.println("===========증\t정=============");
+        System.out.println(GIFT_HEADER);
 
-        // 증정 품목 출력
         for (FreeInfo free : freeInfo) {
             System.out.printf("%-10s %5d%n", free.productName(), free.freeCnt());
         }
 
-        System.out.println("==============================");
-        System.out.printf("%-10s %5d %10s%n", "총구매액", priceInfo.totalQuantity(), priceInfo.totalPrice());
-        System.out.printf("%-10s %18s%n", "행사할인", priceInfo.promotionPrice());
-        System.out.printf("%-10s %18s%n", "멤버십할인", priceInfo.membershipPrice());
-        System.out.printf("%-10s %18s%n", "내실돈", priceInfo.payPrice());
+        System.out.println(FOOTER);
+        System.out.printf(PRODUCT_FORMAT, TOTAL_AMOUNT_LABEL, priceInfo.totalQuantity(), priceInfo.totalPrice());
+        System.out.printf("%-10s %18s%n", PROMOTION_DISCOUNT_LABEL, priceInfo.promotionPrice());
+        System.out.printf("%-10s %18s%n", MEMBERSHIP_DISCOUNT_LABEL, priceInfo.membershipPrice());
+        System.out.printf("%-10s %18s%n", PAY_AMOUNT_LABEL, priceInfo.payPrice());
     }
 }

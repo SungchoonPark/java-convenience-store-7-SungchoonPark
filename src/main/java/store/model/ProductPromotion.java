@@ -78,14 +78,6 @@ public class ProductPromotion {
         return 0L;
     }
 
-    public void updatePromotionQuantity(int purchaseQuantity, LocalDateTime today) {
-        for (PromotionInfo promotion : promotions) {
-            if(promotion.isOngoingPromotion(today)) {
-                promotion.minusQuantity(purchaseQuantity);
-            }
-        }
-    }
-
     public boolean isExistFree(long purchaseQuantity, LocalDateTime today) {
         for (PromotionInfo promotion : promotions) {
             if(promotion.isOngoingPromotion(today)) {

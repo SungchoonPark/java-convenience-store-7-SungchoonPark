@@ -1,5 +1,8 @@
 package store.service;
 
+import store.dto.FreeInfo;
+import store.dto.PriceInfo;
+import store.dto.ProductListData;
 import store.dto.Stocks;
 import store.model.PurchaseItems;
 import store.model.TemporaryPurchaseList;
@@ -25,16 +28,31 @@ public class StoreService {
     }
 
     public PurchaseProducts getPurchaseProducts(PurchaseItems purchaseItems) {
-        List<GeneralProduct> generalProducts = purchaseItems.getGeneralProducts();
-        List<PromotionNotApplyProduct> promotionNotApplyProducts = purchaseItems.getPromotionNotApplyProducts();
-        List<UnderQuantityProduct> underQuantityProducts = purchaseItems.getPromotionUnderQuantity();
-        List<LowPromotionStockProduct> lowPromotionStockProducts = purchaseItems.getLowPromotionStockItems();
-
         return new PurchaseProducts(
-                generalProducts,
-                promotionNotApplyProducts,
-                underQuantityProducts,
-                lowPromotionStockProducts
+                purchaseItems.getGeneralProducts(),
+                purchaseItems.getPromotionNotApplyProducts(),
+                purchaseItems.getPromotionUnderQuantity(),
+                purchaseItems.getLowPromotionStockItems()
         );
+    }
+
+    public void applyMembership(PurchaseProducts purchaseProducts) {
+        purchaseProducts.applyMembership();
+    }
+
+    public List<ProductListData> getTotalProductList(PurchaseProducts purchaseProducts) {
+        return purchaseProducts.getTotalProductList();
+    }
+
+    public  List<FreeInfo> getFreeInfo(PurchaseProducts purchaseProducts) {
+        return purchaseProducts.getFreeInfo();
+    }
+
+    public PriceInfo getPriceInfo(PurchaseProducts purchaseProducts) {
+        return purchaseProducts.getPriceInfo();
+    }
+
+    public void updateProductQuantity(PurchaseProducts purchaseProducts) {
+        purchaseProducts.updateQuantity();
     }
 }

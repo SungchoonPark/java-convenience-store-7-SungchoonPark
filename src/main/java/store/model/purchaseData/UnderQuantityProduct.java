@@ -25,8 +25,11 @@ public class UnderQuantityProduct {
 
     public ProductListData generateProductListData() {
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
-        String price = numberFormat.format(product.getTotalPrice(purchaseQuantity));
-        return new ProductListData(product.getProductName(), purchaseQuantity, price);
+        return new ProductListData(
+                product.getProductName(),
+                purchaseQuantity,
+                numberFormat.format(product.getTotalPrice(purchaseQuantity))
+        );
     }
 
     public boolean isExistFree() {
@@ -34,7 +37,13 @@ public class UnderQuantityProduct {
     }
 
     public FreeInfo generateFreeInfo() {
-        return new FreeInfo(product.getProductName(), product.getFreeCnt(purchaseQuantity));
+        return new FreeInfo(
+                product.getProductName(),
+                getFreeCnt());
+    }
+
+    public long getFreePrice() {
+        return product.getTotalPrice(product.getFreeCnt(purchaseQuantity));
     }
 
     public long getFreeCnt() {
@@ -47,10 +56,6 @@ public class UnderQuantityProduct {
 
     public long getPurchasePrice() {
         return product.getTotalPrice(purchaseQuantity);
-    }
-
-    public long getFreePrice() {
-        return product.getTotalPrice(product.getFreeCnt(purchaseQuantity));
     }
 
     public void updateQuantity() {

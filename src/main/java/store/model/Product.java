@@ -41,11 +41,7 @@ public class Product {
             return false;
         }
 
-        if(!isUnderQuantity(purchaseQuantity) && !isLowPromotionStock(purchaseQuantity)) {
-            return true;
-        }
-
-        return false;
+        return !isUnderQuantity(purchaseQuantity) && !isLowPromotionStock(purchaseQuantity);
     }
 
     public boolean isUnderQuantity(long purchaseQuantity) {
@@ -82,7 +78,6 @@ public class Product {
 
     public void updateQuantity(long purchaseQuantity) {
         if (promotions.isExistTodayPromotion(DateTimes.now())) {
-            // 프로모션 있는 경우 프로모션 부터 재고 삭감
             long remainingQuantity = promotions.minusPromotionQuantity(purchaseQuantity, DateTimes.now());
             productInfo.updateQuantity(remainingQuantity);
             return;

@@ -1,11 +1,8 @@
 package store.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import store.dto.*;
 import store.exception.ExceptionMessage;
 import store.model.purchaseData.LowPromotionStockProduct;
-
-import java.util.List;
 
 public class InputView {
 
@@ -23,29 +20,26 @@ public class InputView {
     }
 
     public String readUnderQuantityUserChoice(String productName) {
-        System.out.println(UNDER_QUANTITY_MESSAGE.formatted(productName));
-        String userChoice = Console.readLine();
-        checkUserInputIsNull(userChoice);
-        checkValidateUserChoice(userChoice);
-
-        return userChoice;
+        return readUserChoice(UNDER_QUANTITY_MESSAGE.formatted(productName));
     }
 
     public String readLowPromotionStockUserChoice(LowPromotionStockProduct lowPromotionStockProduct) {
-        System.out.println(LOW_PROMOTION_STOCK_MESSAGE.formatted(lowPromotionStockProduct.getProductName(), lowPromotionStockProduct.getLowQuantity()));
-        String userChoice = Console.readLine();
-        checkUserInputIsNull(userChoice);
-        checkValidateUserChoice(userChoice);
-
-        return userChoice;
+        return readUserChoice(LOW_PROMOTION_STOCK_MESSAGE.formatted(lowPromotionStockProduct.getProductName(), lowPromotionStockProduct.getLowQuantity()));
     }
 
-    public String printMembership() {
-        System.out.println(MEMBERSHIP_MESSAGE);
+    public String readMembershipUserChoice() {
+        return readUserChoice(MEMBERSHIP_MESSAGE);
+    }
+
+    public String printRePurchase() {
+        return readUserChoice(RE_PURCHASE_MESSAGE);
+    }
+
+    private String readUserChoice(String message) {
+        System.out.println(message);
         String userChoice = Console.readLine();
         checkUserInputIsNull(userChoice);
         checkValidateUserChoice(userChoice);
-
         return userChoice;
     }
 
@@ -59,14 +53,5 @@ public class InputView {
         if (!userChoice.contains("Y") && !userChoice.contains("N")) {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_INPUT.getMessage());
         }
-    }
-
-    public String printRePurchase() {
-        System.out.println(RE_PURCHASE_MESSAGE);
-        String userChoice = Console.readLine();
-        checkUserInputIsNull(userChoice);
-        checkValidateUserChoice(userChoice);
-
-        return userChoice;
     }
 }

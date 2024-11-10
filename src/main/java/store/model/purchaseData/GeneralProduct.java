@@ -15,8 +15,6 @@ public class GeneralProduct {
     }
 
     public void updateQuantity() {
-        // 구매한 수량만큼 product의 재고에서 깎으면 됨.
-        // 최후에 하면 됨.
         product.updateQuantity(purchaseQuantity);
     }
 

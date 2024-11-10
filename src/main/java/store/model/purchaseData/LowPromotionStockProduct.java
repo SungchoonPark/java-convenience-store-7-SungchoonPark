@@ -9,8 +9,8 @@ import java.text.NumberFormat;
 public class LowPromotionStockProduct {
     private final Product product;
     private long purchaseQuantity;
-    private long lowQuantity;
-    private long promotionApplyQuantity;
+    private final long lowQuantity;
+    private final long promotionApplyQuantity;
 
     public LowPromotionStockProduct(Product product, long purchaseQuantity, long lowQuantity) {
         this.product = product;

@@ -8,166 +8,101 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PurchaseProducts {
-    private final List<GeneralProduct> generalProducts;
-    private final List<PromotionNotApplyProduct> promotionNotApplyProducts;
-    private final List<UnderQuantityProduct> underQuantityProducts;
-    private final List<LowPromotionStockProduct> lowPromotionStockProducts;
-    private long memberShipPrice;
+    private final GeneralProducts generalProducts;
+    private final PromotionNotApplyProducts promotionNotApplyProducts;
+    private final UnderQuantityProducts underQuantityProducts;
+    private final LowPromotionStockProducts lowPromotionStockProducts;
 
     public PurchaseProducts(List<GeneralProduct> generalProducts, List<PromotionNotApplyProduct> promotionNotApplyProducts, List<UnderQuantityProduct> underQuantityProducts, List<LowPromotionStockProduct> lowPromotionStockProducts) {
-        this.generalProducts = generalProducts;
-        this.promotionNotApplyProducts = promotionNotApplyProducts;
-        this.underQuantityProducts = underQuantityProducts;
-        this.lowPromotionStockProducts = lowPromotionStockProducts;
-        this.memberShipPrice = 0;
+        this.generalProducts = new GeneralProducts(generalProducts);
+        this.promotionNotApplyProducts = new PromotionNotApplyProducts(promotionNotApplyProducts);
+        this.underQuantityProducts = new UnderQuantityProducts(underQuantityProducts);
+        this.lowPromotionStockProducts = new LowPromotionStockProducts(lowPromotionStockProducts);
     }
 
     public List<UnderQuantityProduct> getUnderQuantityProducts() {
-        return underQuantityProducts;
+        return underQuantityProducts.getUnderQuantityProducts();
     }
 
     public List<LowPromotionStockProduct> getLowPromotionStockProducts() {
-        return lowPromotionStockProducts;
+        return lowPromotionStockProducts.getLowPromotionStockProducts();
     }
 
     public void applyMembership() {
-        long totalPrice = 0L;
-        for (GeneralProduct generalProduct : generalProducts) {
-            totalPrice += generalProduct.getPrice();
-        }
-
-        memberShipPrice =  Math.min((int) Math.round(totalPrice * 0.3), 8000);
+        generalProducts.applyMembership();
     }
 
     public List<ProductListData> getTotalProductList() {
         List<ProductListData> productListDatas = new ArrayList<>();
-        for (GeneralProduct generalProduct : generalProducts) {
-            productListDatas.add(generalProduct.generateProductListData());
-        }
-        for (PromotionNotApplyProduct promotionNotApplyProduct : promotionNotApplyProducts) {
-            productListDatas.add(promotionNotApplyProduct.generateProductListData());
-        }
-        for (UnderQuantityProduct underQuantityProduct : underQuantityProducts) {
-            productListDatas.add(underQuantityProduct.generateProductListData());
-        }
-        for (LowPromotionStockProduct lowPromotionStockProduct : lowPromotionStockProducts) {
-            productListDatas.add(lowPromotionStockProduct.generateProductListData());
-        }
-
+        productListDatas.addAll(generalProducts.generateProductListData());
+        productListDatas.addAll(promotionNotApplyProducts.generateProductListData());
+        productListDatas.addAll(underQuantityProducts.generateProductListData());
+        productListDatas.addAll(lowPromotionStockProducts.generateProductListData());
         return productListDatas;
     }
 
     public List<FreeInfo> getFreeInfo() {
-        // 증정 내역들을 가져올 메서드
         List<FreeInfo> freeInfos = new ArrayList<>();
-        for (PromotionNotApplyProduct promotionNotApplyProduct : promotionNotApplyProducts) {
-            if (promotionNotApplyProduct.isExistFree()) {
-                freeInfos.add(promotionNotApplyProduct.generateFreeInfo());
-            }
-        }
-        for (UnderQuantityProduct underQuantityProduct : underQuantityProducts) {
-            if (underQuantityProduct.isExistFree()) {
-                freeInfos.add(underQuantityProduct.generateFreeInfo());
-            }
-        }
-        for (LowPromotionStockProduct lowPromotionStockProduct : lowPromotionStockProducts) {
-            if (lowPromotionStockProduct.isExistFree()) {
-                freeInfos.add(lowPromotionStockProduct.generateFreeInfo());
-            }
-        }
+
+        freeInfos.addAll(promotionNotApplyProducts.generateFreeInfos());
+        freeInfos.addAll(underQuantityProducts.generateFreeInfos());
+        freeInfos.addAll(lowPromotionStockProducts.generateFreeInfos());
 
         return freeInfos;
     }
 
     public PriceInfo getPriceInfo() {
         return new PriceInfo(
-                getTotalQuantity(),//  토탈 개수
-                getTotalPrice(),// 토탈 금액
-                getPromotionPrice(),// 행사 할인
-                getMembershipDiscount(),// 멤버십 할인
-                getPayPrice()// 내실돈
+                getTotalQuantity(),
+                getTotalPrice(),
+                getPromotionPrice(),
+                getMembershipDiscount(),
+                getPayPrice()
         );
     }
 
     public long getTotalQuantity() {
-        // 총 구매개수
         long totalQuantity = 0;
-        for (GeneralProduct generalProduct : generalProducts) {
-            totalQuantity += generalProduct.getPurchaseQuantity();
-        }
-        for (PromotionNotApplyProduct promotionNotApplyProduct : promotionNotApplyProducts) {
-            totalQuantity += (promotionNotApplyProduct.getPurchaseQuantity() - promotionNotApplyProduct.getFreeCnt());
-        }
-        for (UnderQuantityProduct underQuantityProduct : underQuantityProducts) {
-            totalQuantity += (underQuantityProduct.getPurchaseQuantity() - underQuantityProduct.getFreeCnt());
-        }
-        for (LowPromotionStockProduct lowPromotionStockProduct : lowPromotionStockProducts) {
-            totalQuantity += (lowPromotionStockProduct.getPurchaseQuantity() - lowPromotionStockProduct.getFreeCnt());
-        }
+        totalQuantity += generalProducts.getTotalQuantity();
+        totalQuantity += promotionNotApplyProducts.getTotalQuantity();
+        totalQuantity += underQuantityProducts.getTotalQuantity();
+        totalQuantity += lowPromotionStockProducts.getTotalQuantity();
+
         return totalQuantity;
     }
 
     public long getTotalPrice() {
-        // 총 금액
         long totalPrice = 0;
-        for (GeneralProduct generalProduct : generalProducts) {
-            totalPrice += generalProduct.getPurchasePrice();
-        }
-        for (PromotionNotApplyProduct promotionNotApplyProduct : promotionNotApplyProducts) {
-            totalPrice += promotionNotApplyProduct.getPurchasePrice();
-        }
-        for (UnderQuantityProduct underQuantityProduct : underQuantityProducts) {
-            totalPrice += underQuantityProduct.getPurchasePrice();
-        }
-        for (LowPromotionStockProduct lowPromotionStockProduct : lowPromotionStockProducts) {
-            totalPrice += lowPromotionStockProduct.getPurchasePrice();
-        }
+
+        totalPrice += generalProducts.getTotalPrice();
+        totalPrice += promotionNotApplyProducts.getTotalPrice();
+        totalPrice += underQuantityProducts.getTotalPrice();
+        totalPrice += lowPromotionStockProducts.getTotalPrice();
 
         return totalPrice;
     }
 
     public long getPromotionPrice() {
-        // 행사할인을 구하는 메서드
         long promotionPrice = 0;
-        for (PromotionNotApplyProduct promotionNotApplyProduct : promotionNotApplyProducts) {
-            if (promotionNotApplyProduct.isExistFree()) {
-                promotionPrice += promotionNotApplyProduct.getFreePrice();
-            }
-        }
-        for (UnderQuantityProduct underQuantityProduct : underQuantityProducts) {
-            if (underQuantityProduct.isExistFree()) {
-                promotionPrice += underQuantityProduct.getFreePrice();
-            }
-        }
-        for (LowPromotionStockProduct lowPromotionStockProduct : lowPromotionStockProducts) {
-            if (lowPromotionStockProduct.isExistFree()) {
-                promotionPrice += lowPromotionStockProduct.getFreePrice();
-            }
-        }
+        promotionPrice += promotionNotApplyProducts.getPromotionPrice();
+        promotionPrice += underQuantityProducts.getPromotionPrice();
+        promotionPrice += lowPromotionStockProducts.getPromotionPrice();
+
         return promotionPrice;
     }
 
     public long getMembershipDiscount() {
-        return memberShipPrice;
+        return generalProducts.getMembershipPrice();
     }
 
     public long getPayPrice() {
-        // 내실돈 을 구해오는 메서드
         return getTotalPrice() - getPromotionPrice() - getMembershipDiscount();
     }
 
     public void updateQuantity() {
-        for (GeneralProduct generalProduct : generalProducts) {
-            generalProduct.updateQuantity();
-        }
-        for (PromotionNotApplyProduct promotionNotApplyProduct : promotionNotApplyProducts) {
-            promotionNotApplyProduct.updateQuantity();
-        }
-        for (UnderQuantityProduct underQuantityProduct : underQuantityProducts) {
-            underQuantityProduct.updateQuantity();
-        }
-        for (LowPromotionStockProduct lowPromotionStockProduct : lowPromotionStockProducts) {
-            lowPromotionStockProduct.updateQuantity();
-        }
+        generalProducts.updateQuantity();
+        promotionNotApplyProducts.updateQuantity();
+        underQuantityProducts.updateQuantity();
+        lowPromotionStockProducts.updateQuantity();
     }
 }

@@ -32,7 +32,7 @@ public class LowPromotionStockProduct {
     }
 
     public long getFreePrice() {
-        return product.getTotalPrice(product.getFreeCnt(purchaseQuantity));
+        return product.getTotalPrice(product.getFreeCnt(promotionApplyQuantity));
     }
 
     public ProductListData generateProductListData() {

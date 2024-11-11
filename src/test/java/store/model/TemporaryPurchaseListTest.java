@@ -23,15 +23,6 @@ class TemporaryPurchaseListTest {
         Assertions.assertThat(temporaryPurchaseList).isNotNull();
     }
 
-    @DisplayName("상품 구분자가 ',' 가 아닌 경우 예외발생")
-    @ParameterizedTest
-    @ValueSource(strings = {"[사이다-2].[컵라면-1]", "[사이다-2] [컵라면-1]"})
-    void 상품구분자가_쉼표가_아닌_경우_예외발생(String invalidDelimiterInput) {
-        // given, when, then
-        Assertions.assertThatThrownBy(() -> new TemporaryPurchaseInfo(invalidDelimiterInput))
-                .hasMessage(ExceptionMessage.INVALID_INPUT.getMessage());
-    }
-
     @DisplayName("중복된 상품명 입력한 경우 예외발생")
     @Test
     void 중복된_상품명_입력한_경우_예외발생() {

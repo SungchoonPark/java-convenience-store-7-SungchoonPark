@@ -35,5 +35,4 @@ class UnderQuantityProductTest {
         // then
         Assertions.assertThat(actualPurchaseQuantity).isEqualTo(expectedPurchaseQuantity);
     }
-
 }

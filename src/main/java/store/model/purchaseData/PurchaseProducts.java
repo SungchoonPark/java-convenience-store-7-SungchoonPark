@@ -63,7 +63,14 @@ public class PurchaseProducts {
         );
     }
 
-    public long getTotalQuantity() {
+    public void updateQuantity() {
+        generalProducts.updateQuantity();
+        promotionNotApplyProducts.updateQuantity();
+        underQuantityProducts.updateQuantity();
+        lowPromotionStockProducts.updateQuantity();
+    }
+
+    private long getTotalQuantity() {
         long totalQuantity = 0;
         totalQuantity += generalProducts.getTotalQuantity();
         totalQuantity += promotionNotApplyProducts.getTotalQuantity();
@@ -73,7 +80,7 @@ public class PurchaseProducts {
         return totalQuantity;
     }
 
-    public long getTotalPrice() {
+    private long getTotalPrice() {
         long totalPrice = 0;
 
         totalPrice += generalProducts.getTotalPrice();
@@ -84,7 +91,7 @@ public class PurchaseProducts {
         return totalPrice;
     }
 
-    public long getPromotionPrice() {
+    private long getPromotionPrice() {
         long promotionPrice = 0;
         promotionPrice += promotionNotApplyProducts.getPromotionPrice();
         promotionPrice += underQuantityProducts.getPromotionPrice();
@@ -93,18 +100,11 @@ public class PurchaseProducts {
         return promotionPrice;
     }
 
-    public long getMembershipDiscount() {
+    private long getMembershipDiscount() {
         return generalProducts.getMembershipPrice();
     }
 
-    public long getPayPrice() {
+    private long getPayPrice() {
         return getTotalPrice() - getPromotionPrice() - getMembershipDiscount();
-    }
-
-    public void updateQuantity() {
-        generalProducts.updateQuantity();
-        promotionNotApplyProducts.updateQuantity();
-        underQuantityProducts.updateQuantity();
-        lowPromotionStockProducts.updateQuantity();
     }
 }

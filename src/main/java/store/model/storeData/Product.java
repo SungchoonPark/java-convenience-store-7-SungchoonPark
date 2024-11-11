@@ -30,6 +30,10 @@ public class Product {
         if (getTotalQuantity(now) < purchaseQuantity) {
             throw new IllegalArgumentException(ExceptionMessage.OVER_STOCK.getMessage());
         }
+
+        if (purchaseQuantity < 1) {
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_INPUT.getMessage());
+        }
     }
 
     public boolean isGeneralProduct() {

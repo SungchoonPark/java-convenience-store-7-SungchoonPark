@@ -30,7 +30,7 @@ public class TemporaryPurchaseInfo {
         if (matcher.matches()) {
             return new String[]{matcher.group(1), matcher.group(2)};
         } else {
-            throw new IllegalArgumentException(ExceptionMessage.INVALID_INPUT.getMessage());
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_PRODUCT_AND_STOCK_INPUT.getMessage());
         }
     }
 
